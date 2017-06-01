@@ -1,0 +1,39 @@
+<!doctype HTML>
+<html>
+<meta charset="UTF-8">
+<head>
+<link rel='icon' href='resources/img/tex/selector.png' sizes='16x16 32x32 64x64 128x128' type='image/png' id="favicon"/>
+<title>
+Drive to http converter
+</title>
+<style>
+html,body{
+padding:0;
+margin:0;
+}
+</style>
+</head>
+<body>
+
+<script type="text/javascript">
+function convert(){
+var qqq = document.getElementById("in").value;
+qqq = qqq.replace("drive","docs");
+qqq = qqq.replace("open","uc");
+document.getElementById("out").value=qqq;
+}
+</script>
+
+<p>
+Input Link
+<br/>
+<input type="text" value"" size="80" id="in" onclick="convert()"/>
+</p>
+<p>
+Output Link
+<br/>
+<input type="text" value"" size="80" id="out" onclick="convert()"/>
+</p>
+
+</body>
+</html>

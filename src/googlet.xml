@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Pony Sim City" width="800" height="650" scaling="false"/>
+  <Content type="html">
+  <![CDATA[
+    <!doctype HTML>
+	<html>
+	<meta charset="UTF-8">
+	<head>
+	<title>
+	Pony Sim City v2 (Browser Edition)
+	</title>
+	<!--Core Functions needed first-->
+	<script src="resources/Collision/Point.js"></script>
+	<script src="resources/CanvasGraphics/CanvasGraphics.js"></script>
+
+	<script src="resources/isoengine/engine.js"></script>
+	<script src="resources/isoengine/mapGenerate.js"></script>
+
+	<script src="player.js"></script>
+
+	<!--Additional Scripts-->
+	<script src="resources/hax/cloudhax.js"></script>
+
+
+
+	<!--Main Game scripts-->
+	<script src="game.js" id=""></script>
+	<script src="loader.js"></script>
+
+	<!--has to come before the loader due to images needed-->
+	<script src="resources/ai/ponyAI.js"></script>
+
+	</head>
+	<body onload="preloadImages();">
+
+	<canvas id="canvas" width="800" height="600" oncontextmenu="">
+	Your browser does not support <b>HTML5 Canvas</b>
+	</canvas>
+
+	<script src="wrapper.js"></script>
+	<script type="text/javacript">
+	function externalLoad(){
+	var htmldata="",url="https://docs.google.com/uc?id=0B-UZHbKERL_cWFFGLVN0dUlCNWs";
+	var oReq = new XMLHttpRequest();
+	oReq.onLoad=externalOpen(htmldata);
+	oReq.open("GET", url + ((/\?/).test(url) ? "&" : "?") + (new Date()).getTime());
+	htmldata = oReq.send();
+
+	}
+	function externalOpen(htmldata){
+
+	var winder = open('',"Pony Sim City v2 (Browser Edition)","width=800,height=600,menubar=no,location=no,resizable=no,scrollbars=no,status=no,url=no");
+	winder.document.open("text/html", "replace");
+	winder.document.write(htmldata);
+	winder.document.close();
+	}
+	</script>
+	
+	<input type="button" value="Open Y" onclick="var ttp=open('','zGooglez','width=800,height=600,menubar=no,location=no,resizable=no,scrollbars=no,status=no'); ttp.document.open('text/html','replace');ttp.document.write('<html><head><script type='text/javascript'>var htmldata='',url='https://docs.google.com/uc?id=0B-UZHbKERL_cWFFGLVN0dUlCNWs';var oReq = new XMLHttpRequest();oReq.onLoad=function(htmldata){var winder = open('','Pony Sim City v2 (Browser Edition)','width=800,height=600,menubar=no,location=no,resizable=no,scrollbars=no,status=no,url=no');winder.document.open('text/html', 'replace');winder.document.write(htmldata);winder.document.close();};oReq.open('GET', url + ((/\?/).test(url) ? '&' : '?') + (new Date()).getTime());htmldata = oReq.send();</script></head><body></body></html>');ttp.document.close()"/>
+	<input type="button" value="Open o" onclick="externalLoad();"/>
+	<input type="button" value="Open b" onclick="open('https://www.google.com','zGooglez','width=800,height=600,menubar=no,location=no,resizable=no,scrollbars=no,status=no');"/>
+	<input onclick="parent.location=''" type="button" value="Open L" style="color:red; font-weight:bold" />
+	<input type="button" value="Open f" onclick="window.open('','popup','width=740,height=560,scrollbars=no,resizable=no,toolbar=no,directories=no,location=no,menubar=no,status=no,left=0,top=0'); return false"/>
+	</body>
+	</html>
+  ]]>
+  </Content>
+</Module>
