@@ -1,5 +1,8 @@
 //var _$_69b2=["\x6B\x28\x21\x62\x2E\x61\x2E\x6D\x2E\x70\x28\x22\x66\x3A\x2F\x2F\x33\x2E\x34\x2E\x35\x2F\x36\x2F\x37\x2F\x38\x2F\x39\x2D\x68\x2D\x65\x2D\x63\x2D\x32\x22\x29\x29\x7B\x64\x20\x6C\x3D\x31\x2E\x69\x28\x22\x6A\x22\x29\x3B\x31\x2E\x67\x28\x6C\x5B\x30\x5D\x29\x3B\x6F\x28\x64\x20\x6E\x3D\x30\x3B\x6E\x3C\x6C\x2E\x71\x3B\x6E\x2B\x2B\x29\x31\x2E\x67\x28\x6C\x5B\x6E\x5D\x29\x3B\x62\x2E\x61\x2E\x72\x28\x22\x66\x3A\x2F\x2F\x33\x2E\x34\x2E\x35\x2F\x36\x2F\x37\x2F\x38\x2F\x39\x2D\x68\x2D\x65\x2D\x63\x2D\x32\x22\x29\x7D","\x7C","\x73\x70\x6C\x69\x74","\x7C\x64\x6F\x63\x75\x6D\x65\x6E\x74\x7C\x7C\x73\x69\x74\x65\x73\x7C\x67\x6F\x6F\x67\x6C\x65\x7C\x63\x6F\x6D\x7C\x73\x69\x74\x65\x7C\x74\x61\x72\x74\x61\x72\x75\x73\x66\x69\x72\x65\x67\x61\x6D\x69\x6E\x67\x7C\x77\x65\x62\x67\x61\x6D\x65\x73\x7C\x70\x6F\x6E\x79\x7C\x6C\x6F\x63\x61\x74\x69\x6F\x6E\x7C\x77\x69\x6E\x64\x6F\x77\x7C\x76\x65\x72\x73\x69\x6F\x6E\x7C\x76\x61\x72\x7C\x63\x69\x74\x79\x7C\x68\x74\x74\x70\x73\x7C\x72\x65\x6D\x6F\x76\x65\x43\x68\x69\x6C\x64\x7C\x73\x69\x6D\x7C\x67\x65\x74\x45\x6C\x65\x6D\x65\x6E\x74\x73\x42\x79\x54\x61\x67\x4E\x61\x6D\x65\x7C\x68\x74\x6D\x6C\x7C\x69\x66\x7C\x7C\x68\x72\x65\x66\x7C\x7C\x66\x6F\x72\x7C\x69\x6E\x63\x6C\x75\x64\x65\x73\x7C\x6C\x65\x6E\x67\x74\x68\x7C\x72\x65\x70\x6C\x61\x63\x65","\x74\x6F\x53\x74\x72\x69\x6E\x67","\x72\x65\x70\x6C\x61\x63\x65","","\x5C\x77\x2B","\x5C\x62","\x67"];eval(function(g,a,b,f,d,h){d= function(b){return b[_$_69b2[4]](a)};if(!_$_69b2[6][_$_69b2[5]](/^/,String)){while(b--){h[d(b)]= f[b]|| d(b)};f= [function(d){return h[d]}];d= function(){return _$_69b2[7]};b= 1};while(b--){if(f[b]){g= g[_$_69b2[5]]( new RegExp(_$_69b2[8]+ d(b)+ _$_69b2[8],_$_69b2[9]),f[b])}};return g}(_$_69b2[0],28,28,_$_69b2[3][_$_69b2[2]](_$_69b2[1]),0,{}))
 
+
+var offline = true;
+
 /*
 public static String[][] img = {
 		{"dirt","dirt","dirt","dirt"},
@@ -32,8 +35,9 @@ public static String[][] img = {
 */
 
 /*BLANKED RESOURCES INDICATE UNIMPLEMENTED BLOCKS _first blank indicates air*/
-var tiles_urls =       ["","dirt","grass","stone","concrete","sand","clay","water","fire","lava","roadTile","","","oakTree_bottom","oakTree_top"];
-/*
+var tiles_urls =   offline?    ["","dirt","grass","stone","concrete","sand","clay","water","fire","lava","roadTile","","","oakTree_bottom","oakTree_top"]
+//*
+:
 [
 "",
 "https://docs.google.com/uc?id=0B-UZHbKERL_cdVVrTG41d1NBY28",//"dirt",
@@ -52,20 +56,23 @@ var tiles_urls =       ["","dirt","grass","stone","concrete","sand","clay","wate
 "https://docs.google.com/uc?id=0B-UZHbKERL_cYWNMY2VNeDdOVkU"//"oakTree_top"
 ];
 //*/
-var zone_urls = ["food"];
-/*
+var zone_urls = offline? ["food"]
+//*
+:
 [
 "https://docs.google.com/uc?id=0B-UZHbKERL_cRDR0VF9KYjZUbTQ"//"food"
 ];
 //*/
-var zone_urls_shaded = ["food"];
-/*
+var zone_urls_shaded = offline? ["food"]
+//*
+:
 [
 "https://docs.google.com/uc?id=0B-UZHbKERL_cRGVMekF2dGI4V1E"//"food"
 ];
 //*/
-var tiles_shaded_urls = ["","dirt","grass","stone","concrete","sand","clay","water","","","roadTile","","","oakTree_bottom","oakTree_top"];
-/*
+var tiles_shaded_urls = offline? ["","dirt","grass","stone","concrete","sand","clay","water","","","roadTile","","","oakTree_bottom","oakTree_top"]
+//*
+:
 [
 "",
 "https://docs.google.com/uc?id=0B-UZHbKERL_cUGdsUGhNWVlTQWM",//"dirt",
@@ -84,22 +91,29 @@ var tiles_shaded_urls = ["","dirt","grass","stone","concrete","sand","clay","wat
 "https://docs.google.com/uc?id=0B-UZHbKERL_ccF90UzlfelBPZ1k"//"oakTree_top"
 ];
 //*/
-var building_urls =         ["HSE_BTM","HSE_TOP","APT_BTM","APT_TOP","waterTower_bottom","waterTower_top"];
-/*
+var building_urls =    offline?     ["HSE_BTM","HSE_TOP","APT_BTM","APT_TOP","waterTower_bottom","waterTower_top"]
+//*
+:
 [
 "https://docs.google.com/uc?id=0B-UZHbKERL_ceExaUHpQOFZ3VTg",//"HSE_BTM",
 "https://docs.google.com/uc?id=0B-UZHbKERL_cOGQ3VklVQmhGeTA",//"HSE_TOP",
 "https://docs.google.com/uc?id=0B-UZHbKERL_cdGpoa3IzQVpwSjg",//"APT_BTM",
-"https://docs.google.com/uc?id=0B-UZHbKERL_cQ3BIUGxnTjlTMHM"//"APT_TOP"
+"https://docs.google.com/uc?id=0B-UZHbKERL_cQ3BIUGxnTjlTMHM",//"APT_TOP"
+"https://docs.google.com/uc?id=0B-UZHbKERL_cZUJ4MzNzSWV2T1E",//"waterTower_bottom",
+"https://docs.google.com/uc?id=0B-UZHbKERL_cRlB0WUxBdnB5UmM"//"waterTower_top"
+
 ];
 //*/
-var buildings_shaded_urls = ["HSE_BTM","HSE_TOP","APT_BTM","APT_TOP","waterTower_bottom","waterTower_top"];
-/*
+var buildings_shaded_urls = offline? ["HSE_BTM","HSE_TOP","APT_BTM","APT_TOP","waterTower_bottom","waterTower_top"]
+//*
+:
 [
 "https://docs.google.com/uc?id=0B-UZHbKERL_cY0RCSXgyVTUyMFE",//"HSE_BTM",
 "https://docs.google.com/uc?id=0B-UZHbKERL_cbnBkUE11bHA5NHc",//"HSE_TOP",
 "https://docs.google.com/uc?id=0B-UZHbKERL_caHlBRjlGWHJVc0E",//"APT_BTM",
-"https://docs.google.com/uc?id=0B-UZHbKERL_cOXZ1bXYwblFncWc"//"APT_TOP"
+"https://docs.google.com/uc?id=0B-UZHbKERL_cOXZ1bXYwblFncWc",//"APT_TOP"
+"https://docs.google.com/uc?id=0B-UZHbKERL_cbUlOOERtQ1E1bWM",//"waterTower_bottom",
+"https://docs.google.com/uc?id=0B-UZHbKERL_ccnM4ci1UcHhJV0k"//"waterTower_top"
 ];
 //*/
 var tiles = createArray(tiles_urls.length,8);//8 for shaded and normal textures
@@ -113,8 +127,9 @@ var region_desc = [
 "A land of volcanoes and suphur pits with mesas. No pony wishes to live in such extremes.",
 "A region even more harsh than the desert. Many steep clifs have led ponies to their deaths."
 ];
-var region_urls = ["IceRegion","GrassRegion","ForestRegion","DesertRegion","MountainRegion","FireRegion","CanyonRegion"];
-/*
+var region_urls = offline? ["IceRegion","GrassRegion","ForestRegion","DesertRegion","MountainRegion","FireRegion","CanyonRegion"]
+//*
+:
 [
 "https://docs.google.com/uc?id=0B-UZHbKERL_cLUpJYTN5OVlDTDg",//"IceRegion",
 "https://docs.google.com/uc?id=0B-UZHbKERL_cZDJlSEVpNVlJV28",//"GrassRegion",
@@ -125,8 +140,9 @@ var region_urls = ["IceRegion","GrassRegion","ForestRegion","DesertRegion","Moun
 "https://docs.google.com/uc?id=0B-UZHbKERL_cOEUzY0w5aWpFcjA"//"CanyonRegion"
 ];
 //*/
-var tileselector = "resources/img/tex/selector.png";
-//"https://docs.google.com/uc?id=0B-UZHbKERL_cYlhLTWc4THI2Q3c";
+var tileselector = offline?"resources/img/tex/selector.png"
+:
+"https://docs.google.com/uc?id=0B-UZHbKERL_cYlhLTWc4THI2Q3c";
 var regions = createArray(region_urls.length);
 
 var loaded = 0;
@@ -215,16 +231,19 @@ function preloadImages(){
 }
 
 var ponyBase = new Image();
-ponyBase.src="resources/img/pone/earth_horizontal.png";
-//"https://docs.google.com/uc?id=0B-UZHbKERL_cLXBQTXgwMVI4OWc";
+ponyBase.src=offline?"resources/img/pone/earth_horizontal.png"
+:
+"https://docs.google.com/uc?id=0B-UZHbKERL_cLXBQTXgwMVI4OWc";
 ponyBase.onload=onload();
 var ponyHair = new Image();
-ponyHair.src="resources/img/pone/hair_horizontal.png";
-//"https://docs.google.com/uc?id=0B-UZHbKERL_ccExDRm84VWc1WDA";
+ponyHair.src=offline?"resources/img/pone/hair_horizontal.png"
+:
+"https://docs.google.com/uc?id=0B-UZHbKERL_ccExDRm84VWc1WDA";
 ponyHair.onload=onload();
 var ponyGuard = new Image();
-ponyGuard.src="resources/img/pone/guard_horizontal.png";
-//"https://docs.google.com/uc?id=0B-UZHbKERL_cRjF3X0ZmTENyek0";
+ponyGuard.src=offline?"resources/img/pone/guard_horizontal.png"
+:
+"https://docs.google.com/uc?id=0B-UZHbKERL_cRjF3X0ZmTENyek0";
 ponyGuard.onload=onload();
 
 function onload(n){

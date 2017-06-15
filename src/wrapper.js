@@ -4,6 +4,7 @@ var width = 800, height = 600;
 var canvas = document.getElementById("canvas");
 var cg = new CanvasGraphics(canvas,width,height);
 var g = new CanvasGraphics(null,width,height);
+g.setImageSmoothing(false);
 
 var fps = 60,target_fps=1000/fps;
 
@@ -57,6 +58,7 @@ function graphics(){
 	
 	cg.drawImage(g.getCanvas(),0,0);
 	
+	
 	FPS_COUNTER++;
 	
 	//last_g=Date.now();
@@ -86,9 +88,11 @@ var b1 =false,b2=false,b3=false;
 var btn = 0,drag=false;
 
 function setMousePos(evt){//called anyway even with the press events
+	//touchSlideIt();
+	//if(evt!=null)return;
 	//if(!press){
-	mx = Math.floor(evt.clientX - canvas.getBoundingClientRect().left);
-	my = Math.floor(evt.clientY - canvas.getBoundingClientRect().top);
+	mx = ~~(evt.clientX - canvas.getBoundingClientRect().left);
+	my = ~~(evt.clientY - canvas.getBoundingClientRect().top);
 	//}
 	//FIXME
 	//onMove();
@@ -100,13 +104,15 @@ function setMousePos(evt){//called anyway even with the press events
 		yscroll-=py-my;
 		px=mx;
 		py=my;
+		cacheGrid();
 	}
 }
 
 function setMousePress(evt){
+	//touchIt();if(evt!=null)return;
 	px = evt.clientX - canvas.getBoundingClientRect().left;
 	py = evt.clientY - canvas.getBoundingClientRect().top;
-	//btn=event.button;
+	
 	switch(evt.button){
 		case(0):
 		b1=true;
@@ -131,6 +137,7 @@ function setMousePress(evt){
 }
 
 function setMouseNotPress(evt){
+	//touchReleaseIt();if(evt!=null)return;
 	//px = evt.clientX - canvas.getBoundingClientRect().left;
 	//py = evt.clientY - canvas.getBoundingClientRect().top;
 	switch(evt.button){
@@ -161,35 +168,15 @@ canvas.addEventListener('mousedown', setMousePress,false);
 canvas.addEventListener('mouseup', setMouseNotPress,false);
 canvas.addEventListener('mouseleave', setMouseExit,false);
 canvas.addEventListener('wheel', scrollHandler,false);
+
+addMoibleCanvasListeners();
 }
 
 function scrollHandler(e){
 	e.preventDefault();
 	
 	if(gameState==1){
-		if(my>height-200){
-			if(e.deltaY<0){
-				tileScroll+=64;
-				if(tileScroll>0)tileScroll=0;
-			}else{
-				tileScroll-=64;
-			}
-		}else{
-			if(e.deltaY<0){
-				if(scale<1){
-					//var kl = (xscroll);alert(kl);
-					scale*=2;
-					xscroll=width/2-grid.length*t_width/2*scale;
-					yscroll=height/2;//grid[0].length*t_height/2*scale;
-				}
-			}else{
-				if(scale>.125){
-					scale/=2;
-					xscroll=width/2-grid.length*t_width/2*scale;
-					yscroll=height/2;//grid[0].length*t_height/2*scale;
-				}
-			}
-		}
+		zoomMap(e.deltaY);
 	}else if(mainState==1){
 		if(e.deltaY<0){
 			if(gameyoff>0)
@@ -201,6 +188,57 @@ function scrollHandler(e){
 	}
 	//document.title=xscroll+" "+yscroll;
 	return false;
+}
+
+function zoomMap(deltaY){
+	if(my>height-200){
+		if(deltaY<0){
+			tileScroll+=64;
+			if(tileScroll>0)tileScroll=0;
+		}else{
+			tileScroll-=64;
+		}
+	}else{
+		if(deltaY<0){
+			if(scale<1){
+				//var kl = (xscroll);alert(kl);
+				scale*=2;
+				var xx = slx,yy=sly,zz=slz;
+				if(slx!=-1){
+					xscroll=-(h_width*xx+h_width*yy)*scale+mx-h_width*scale;//+width/2;
+					yscroll=-(-q_width*xx+q_width*yy-zz*h_height)*scale+my-q_height*scale;//+height/2;
+				}else{
+					xscroll=width/2-grid.length*t_width/2*scale;
+					yscroll=height/2;//grid[0].length*t_height/2*scale;
+				}
+				//xscroll=width/2-grid.length*t_width/2*scale;
+				//yscroll=height/2;//grid[0].length*t_height/2*scale;
+				cacheGrid();
+			}
+		}else{
+			if(scale>.125){
+				scale/=2;
+				var xx = slx,yy=sly,zz=slz;
+				if(slx!=-1){
+					xscroll=-(h_width*xx+h_width*yy)*scale+mx-h_width*scale;//+width/2;
+					yscroll=-(-q_width*xx+q_width*yy-zz*h_height)*scale+my-q_height*scale;//+height/2;
+				}else{
+					xscroll=width/2-grid.length*t_width/2*scale;
+					yscroll=height/2;//grid[0].length*t_height/2*scale;
+				}
+				//xscroll=width/2-grid.length*t_width/2*scale;
+				//yscroll=height/2;//grid[0].length*t_height/2*scale;
+				cacheGrid();
+			}
+		}
+	}
+	
+	/** X,Y
+	
+	(h_width*x+h_width*y)*scale+xscroll,
+				(-q_width*x+q_width*y-z*h_height)*scale+yscroll
+	
+	**/
 }
 
 var FPSid=null;
@@ -257,41 +295,161 @@ function MouseWheelHandler(e)
     return false;
 }
 */
+/*
+function touchIt(){
+	//*
+	var e = new Event('touchstart');
+	e.touches = [{clientX: mx, clientY: my}];
+	e.changedTouches = [0];
+	//* /
+	canvas.dispatchEvent(e);
+	//alert("touch");
+}
+
+function touchSlide(){
+	//*
+	var e = new Event('touchmove');
+	e.touches = [{clientX: mx, clientY: my}];
+	e.changedTouches = [0];
+	//* /
+	canvas.dispatchEvent(e);
+	//alert("touch");
+}
+
+function touchRelease(){
+	//*
+	var e = new Event('touchend');
+	e.touches = [{clientX: mx, clientY: my}];
+	e.changedTouches = [0];
+	//* /
+	canvas.dispatchEvent(e);
+	//alert("touch");
+}
 
 function simulateMouseTouch(evt){
 	px = getTouchPos(canvas, e).x;
 	py = getTouchPos(canvas, e).y;
-	/*var mouseEvent = new MouseEvent("mousedown", {
-		clientX: e.touches[0].clientX,
-		clientY: e.touches[0].clientY
-	});*/
+	//var mouseEvent = new MouseEvent("mousedown", {
+	//	clientX: e.touches[0].clientX,
+	//	clientY: e.touches[0].clientY
+	//});
 	canvas.dispatchEvent(new MouseEvent("mousedown", {
 		clientX: evt.touches[0].clientX,
 		clientY: evt.touches[0].clientY
 	}));
 	evt.preventDefault();
 }
+//*/
 
+function addMoibleCanvasListeners(){
+	
 canvas.addEventListener("touchstart", function (e) {
-
+	//var touch2 = e.touches[1];
+	//if(touch2!=null&&!(""+touch2=="undefined"))
+	/**
+	var mE=null;
+	var touch = e.touches[0];
+	if(e.changedTouches.length>1)
+	mE = new MouseEvent("mousedown", {
+		clientX: touch.clientX,
+		clientY: touch.clientY,
+		button: 2
+	});
+	else
+	mE = new MouseEvent("mousedown", {
+		clientX: touch.clientX,
+		clientY: touch.clientY,
+		button: 1
+	});
+	canvas.dispatchEvent(mE);*/
+	
+	px = e.touches[0].clientX - canvas.getBoundingClientRect().left;
+	py = e.touches[0].clientY - canvas.getBoundingClientRect().top;
+	switch(e.changedTouches.length>1?2:0){
+		case(0):
+		b1=true;
+		break;
+		case(1):
+		b2=true;
+		break;
+		case(2):
+		b3=true;drag=true;
+	}
+	
+	e.preventDefault();
 }, false);
 canvas.addEventListener("touchend", function (e) {
-	var mouseEvent = new MouseEvent("mouseup", {});
-	canvas.dispatchEvent(mouseEvent);
+	//var mE = new MouseEvent("mouseup", {});=
+	//canvas.dispatchEvent(mE);
+	setMouseExit(null);//event passed in is not required
+	e.preventDefault();
+}, false);
+canvas.addEventListener("touchcancel", function (e) {
+	/*var mE = new MouseEvent("mouseup", {});
+	canvas.dispatchEvent(mE);*/
+	setMouseExit();//event passed in is not required
+	e.preventDefault(null);
 }, false);
 canvas.addEventListener("touchmove", function (e) {
-	var touch = e.touches[0];
-	var mouseEvent = new MouseEvent("mousemove", {
-		clientX: touch.clientX,
-		clientY: touch.clientY
-	});
-	canvas.dispatchEvent(mouseEvent);
+	mx = ~~(e.touches[0].clientX - canvas.getBoundingClientRect().left);
+	my = ~~(e.touches[0].clientY - canvas.getBoundingClientRect().top);
+	
+	if(drag){
+	if(gameState!=1)return;
+		xscroll-=px-mx;
+		yscroll-=py-my;
+		px=mx;
+		py=my;
+	}
+	e.preventDefault();
+	
+	alert("touch moved")
+	
 }, false);
 
+}
+//https://stackoverflow.com/questions/18059860/manually-trigger-touch-event
+//http://www.javascriptkit.com/javatutors/touchevents.shtml
+//https://developer.mozilla.org/en-US/docs/Web/Events/touchstart
+//https://developer.mozilla.org/en-US/docs/Web/API/Touch
+//https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Using_Touch_Events
+//https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/MouseEvent
+
+//https://stackoverflow.com/questions/9882257/how-to-reference-a-long-class-name-with-spaces-in-css
 
 
-
-
+/**
+http://www.javascriptkit.com/javatutors/touchevents.shtml
+function addMoibleCanvasListeners2(){
+	canvas.addEventListener('touchstart', function(e){
+        var touchobj = e.changedTouches[0]; // reference first touch point (ie: first finger)
+        //startx = parseInt(touchobj.clientX) // get x position of touch point relative to left edge of browser
+		if(e.changedTouches.length>1)
+			
+		else
+		var mouseEvent = new MouseEvent("mousedown", {
+			clientX: touch.clientX,
+			clientY: touch.clientY,
+			button: 1
+		});
+		
+        e.preventDefault()
+    }, false)
+ 
+    canvas.addEventListener('touchmove', function(e){
+        var touchobj = e.changedTouches[0] // reference first touch point for this event
+        var dist = parseInt(touchobj.clientX) - startx
+        statusdiv.innerHTML = 'Status: touchmove<br> Horizontal distance traveled: ' + dist + 'px'
+        e.preventDefault()
+    }, false)
+ 
+    canvas.addEventListener('touchend', function(e){
+        var touchobj = e.changedTouches[0] // reference first touch point for this event
+        statusdiv.innerHTML = 'Status: touchend<br> Resting x coordinate: ' + touchobj.clientX + 'px'
+        e.preventDefault()
+    }, false)
+}
+**/
 
 
 

@@ -63,6 +63,15 @@ function CanvasGraphics(canvasObject, canvasWidth,canvasHeight) {
 	this.getContext = function(){
 		return ctx;
 	}
+	/////////////////////////////////////////////
+	//User Mod Calls
+	////////////////////////////////////////////
+	this.setImageSmoothing = function(true_or_false){
+		if(true_or_false!=true&&true_or_false!=false)
+			return false;
+		ctx.imageSmoothingEnabled = true_or_false;
+		return true;
+	}
 
 	/////////////////////////////////////////////
 	//Modification Calls

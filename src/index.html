@@ -48,7 +48,6 @@ img,canvas,.canvas,#canvas {
 </style>
 
 <!--Core Functions needed first-->
-<!--PREFIX: file:///C:/Users/Joseph A Fuller/! js/SimCity_hors/-->
 <script src="resources/Collision/Point.js"></script>
 <script src="resources/CanvasGraphics/CanvasGraphics.js"></script>
 
@@ -60,6 +59,9 @@ img,canvas,.canvas,#canvas {
 
 <!--Additional Scripts-->
 <script src="resources/hax/cloudhax.js"></script>
+<!--Multicore Scripts-->
+<script src="resources/multicore/multithread.js"></script>
+
 
 <!--Main Game scripts-->
 <script src="game.js" id=""></script>
@@ -76,8 +78,9 @@ img,canvas,.canvas,#canvas {
 <form id="mapSaver" style="z-index:6;display:none;" width="150" height="150">
 <input id="mapSaverData" style="visibility:hidden;z-index:6;"/>
 </form>
-</div>
 <iframe src="#" id="no-target" name="no-target" style="z-index:6;"></iframe>
+</div>
+
 
 <div id="tartarusfire_game_container_pony_sim_city">
 <canvas id="canvas" class="canvas" width="800" height="600" oncontextmenu="">

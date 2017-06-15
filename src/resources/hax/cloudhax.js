@@ -106,7 +106,7 @@ function generateMapSaveFunctions(){
 	//mapSaverRet.style="visibility:hidden";
 	mapSaverRet.onload=function(){
 		//mapSaverRet.style="visibility:";
-		alert("");
+		//alert("");
 		/*
 		if(mapSaverInit){
 			alert(document.getElementById("freebirdFormviewerViewResponseLinksContainer"));

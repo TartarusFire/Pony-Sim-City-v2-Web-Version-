@@ -12,7 +12,7 @@ function renderGame(g){
 		renderIsoMap(g);
 		renderHUD(g);
 		if(b1&&py<height-200){
-			editBock(selBlock);
+			if(editBock(selBlock))cacheGrid();
 			b1=false;
 		}
 		break;
@@ -47,9 +47,10 @@ function gameMainMenu(g){
 		case(1)://new game
 		gameMainNewGame(g);
 		return;
-		case(2):
+		case(2)://load game
 		return;
-		case(3):
+		case(3)://options
+		gameMainOptions(g);
 		return;
 		case(4):
 		return;
@@ -193,6 +194,287 @@ function gameMainNewGame(g){
 		//}
 }
 
+function gameMainOptions(g){
+	g.setColor("black");
+			g.setFont("Dialog bold",40);
+			g.drawString("Fancy Graphics", 5, 60);
+			g.drawString("User Setup", 5, 180);
+			g.drawString("Dev's Stuff", 5, 360);
+			g.drawString("AI Options", 5, 490);
+			
+			g.setFont("Dialog",25);
+			
+			////////////////////////
+			//Fancy Graphics Options
+			////////////////////////
+			
+			g.drawString("Day Graphics:", 5, 90);
+			g.drawString("ON  OFF", 215, 90);
+			/*if(Point.inRect(0,65,400,30,mx,my)){
+				g.drawRect(0,65,400,30);
+				if(b1){
+					b1=false;
+					dayTime=!dayTime;
+				}
+			}
+			if(dayTime)
+			g.fillRect(265, 65,70,30);
+			else
+			g.fillRect(215, 65,50,30);
+			*/
+			g.drawString("NIGHT Graphics:", 5, 120);
+			g.drawString("ON  OFF", 215, 120);
+			/*if(Point.inRect(0,95,400,30,mx,my)){
+				g.drawRect(0,95,400,30);
+				if(b1){
+					b1=false;
+					nightTime=!nightTime;
+				}
+			}
+			if(nightTime)
+			g.fillRect(265, 95,70,30);
+			else
+			g.fillRect(215, 95,50,30);
+			*/
+			g.drawString("Smooth Scaling:", 405, 90);
+			g.drawString("ON  OFF", 615, 90);
+			if(Point.inRect(400,65,400,30,mx,my)){
+				g.drawRect(400,65,400,30);
+				if(b1){
+					b1=false;
+					g.getContext().imageSmoothingEnabled=!g.getContext().imageSmoothingEnabled;
+				}
+			}
+			if(g.getContext().imageSmoothingEnabled)
+			g.fillRect(665, 65,70,30);
+			else
+			g.fillRect(615, 65,50,30);
+			/*g.drawString("Shopping Alerts:", 405, 90);
+			g.drawString("ON  OFF", 615, 90);
+			if(Point.inRect(400,65,400,30,mx,my)){
+				g.drawRect(400,65,400,30);
+				if(b1){
+					b1=false;
+					shopAlert=!shopAlert;
+				}
+			}
+			if(shopAlert)
+			g.fillRect(665, 65,70,30);
+			else
+			g.fillRect(615, 65,50,30);
+			g.drawString("Alert Limit 50:", 405, 120);
+			g.drawString("ON  OFF", 615, 120);
+			if(Point.inRect(400,95,400,30,mx,my)){
+				g.drawRect(400,95,400,30);
+				if(b1){
+					b1=false;
+					alertLimit=!alertLimit;
+				}
+			}
+			if(alertLimit)
+			g.fillRect(665, 95,70,30);
+			else
+			g.fillRect(615, 95,50,30);*/
+			////////////////////
+			//User Setup
+			////////////////////
+			
+			g.drawString("Dominant Hand:", 5, 210);
+			g.drawString("RIGHT  LEFT", 215, 210);
+			/*if(Point.inRect(0,185,400,30,mx,my)){
+				g.drawRect(0,185,400,30);
+				if(b1){
+					b1=false;
+					rightHanded=!rightHanded;
+				}
+			}
+			if(rightHanded)
+			g.fillRect(300, 185,70,30);
+			//g.fillRect(285, 185,100,30);
+			else
+			g.fillRect(215, 185,85,30);
+			//g.fillRect(215, 185,70,30);
+			*/
+			g.drawString("Sounds: ", 5, 240);
+			g.drawString("ON  OFF", 215, 240);
+			/*if(Point.inRect(0,215,400,30,mx,my)){
+				g.drawRect(0,215,400,30);
+				if(b1){
+					b1=false;
+					sounds=!sounds;
+				}
+			}
+			if(sounds)
+			g.fillRect(265, 215,70,30);
+			else
+			g.fillRect(215, 215,50,30);
+			
+			g.drawString("Music: ", 5, 270);
+			g.drawString("ON  OFF", 215, 270);
+			if(Point.inRect(0,245,400,30,mx,my)){
+				g.drawRect(0,245,400,30);
+				if(b1){
+					b1=false;
+					Sound.Music.toggle();
+					music=!music;
+					//if(music){
+					//	Sound.Music.init();
+					//}
+				}
+			}
+			if(music)
+			g.fillRect(265, 245,70,30);
+			else
+			g.fillRect(215, 245,50,30);
+			g.drawString("_1 _2 _3 "/*_4 _5 _6 _7 _8 _9"*//*, 405, 270);
+			if(Point.inRect(400,245,400,30,mx,my)){
+				g.drawRect(400,245,400,30);
+				if(b1){
+					b1=false;
+					Sound.Music.swap(Sound.Music.swap+1);
+				}
+			}
+			g.drawRect(400+Sound.Music.swap*36,245,30,30);//+1 per number
+			
+			////////////////////////////
+			//Dev's Stuff
+			////////////////////////////
+			
+			g.drawString("Dev Pony: ", 5, 390);
+			g.drawString("ON  OFF", 215, 390);
+			if(Point.inRect(0,365,400,30,mx,my)){
+				g.drawRect(0,365,400,30);
+				if(b1){
+					b1=false;
+					devPony=!devPony;
+				}
+			}
+			if(devPony)
+			g.fillRect(265, 365,70,30);
+			else
+			g.fillRect(215, 365,50,30);
+			
+			g.drawString("Dev AI: ", 5, 420);
+			g.drawString("FREE  PATH", 215, 420);
+			g.drawString("Normal  Haste  ALL_TEH_COFFEE", 405, 420);
+			if(Point.inRect(0,395,400,30,mx,my)){
+				g.drawRect(0,395,400,30);
+				if(b1){
+					b1=false;
+					spazAI = !spazAI;
+				}
+			}
+			if(spazAI)
+			g.fillRect(285, 395,75,30);
+			else
+			g.fillRect(215, 395,70,30);
+			
+			if(Point.inRect(400,395,400,30,mx,my)){
+				g.drawRect(400,395,400,30);
+				if(b1){
+					b1=false;
+					speed++;
+					if(speed==speeds.length)speed=0;
+					Dev.DevSim.speed=speeds[speed];
+				}
+			}
+			
+			switch(speed){
+			case(0):
+				g.fillRect(495, 395,315,30);
+				break;
+			case(1):
+				g.fillRect(400, 395,90,30);
+			
+				g.fillRect(580, 395,220,30);
+				break;
+			default:
+				g.fillRect(400, 395,180,30);
+			}
+			*/
+			///////////////////////////////
+			//AI Handling
+			///////////////////////////////
+			/*g.drawString("Render: ", 5, 520);
+			g.drawString("ON  OFF", 215, 520);
+			if(Point.inRect(0,495,400,30,mx,my)){
+				g.drawRect(0,495,400,30);
+				if(b1){
+					b1=false;
+					AIs = !AIs;
+				}
+			}
+			if(AIs)
+			g.fillRect(265, 495,70,30);
+			else
+			g.fillRect(215, 495,50,30);
+			*/
+			g.drawString("MAX Render: ", 5, 550);
+			g.drawString("ON  OFF", 215, 550);
+			if(Point.inRect(0,525,400,30,mx,my)){
+				g.drawRect(0,525,400,30);
+				if(b1){
+					b1=false;
+					OPPT = !OPPT;
+				}
+			}
+			if(OPPT)
+			g.fillRect(215, 525,50,30);
+			else
+			g.fillRect(265, 525,70,30);
+			
+			g.drawString("'Train' AI's: ", 405, 520);
+			g.drawString("ON  OFF", 615, 520);
+			if(Point.inRect(400,495,400,30,mx,my)){
+				g.drawRect(400,495,400,30);
+				if(b1){
+					b1=false;
+					trainAI=!trainAI;
+				}
+			}
+			
+			if(trainAI)
+			g.fillRect(615, 495,50,30);
+			else
+			g.fillRect(665, 495,70,30);
+			
+			
+			/*g.drawString("Render Percent: ", 5, 580);
+			g.drawString("100%  75%  50%  25%  10%", 215, 580);
+			if(Point.inRect(0,555,600,30,mx,my)){
+				g.drawRect(0,555,600,30);
+				if(b1){
+					b1=false;
+					if(UltraAI.render+1==UltraAI.rend.length)
+					UltraAI.render=0;
+					else
+					UltraAI.render++;
+				}
+			}
+			switch(UltraAI.render){
+			case(0)://>580
+				g.fillRect(285,555,295,30);
+				break;
+			case(1):
+				g.fillRect(215,555,70,30);
+				g.fillRect(355,555,225,30);
+				break;
+			case(2):
+				g.fillRect(215,555,140,30);
+				g.fillRect(415,555,165,30);
+				break;
+			case(3):
+				g.fillRect(215,555,200,30);
+				g.fillRect(485,555,95,30);
+				break;
+			case(4):
+				g.fillRect(215,555,270,30);
+				break;
+			}
+			
+		}*/
+}
+
 //MAP GENERATION
 var active = [true,true,true,true,true,true,true];
 
@@ -227,6 +509,9 @@ wolves=[];
 city_MaxPop=0;
 drag=false;
 b1=false;
+scale=1;
+xscroll=0;
+yscroll=300;
 	//generate and check for map generation
 switch(region){
 	
@@ -289,7 +574,7 @@ switch(region){
 	}
 
 //reset other values here
-
+cacheGrid();
 }
 
 
@@ -318,32 +603,30 @@ function renderHUD(g){
 	if(Point.inRect(width-64,0,64,64,px,py)&&b1){
 		b1=false;
 		viewdir++;
-		viewdir%=4;
+		viewdir%=4;cacheGrid();
 	}
 	g.fillRect(width-64,96,64,64);
 	if(Point.inRect(width-64,96,64,64,px,py)&&b1){
 		b1=false;
 		viewdir--;
-		if(viewdir<0)viewdir=3;
+		if(viewdir<0)viewdir=3;cacheGrid();
 	}
 	g.fillRect(width-64,192,64,64);
 	if(Point.inRect(width-64,192,64,64,px,py)&&b1){
 		b1=false;
-		if(scale<1){
-			scale*=2;
-			xscroll=width/2-grid.length*t_width/2*scale;
-			yscroll=height/2;
-		}
+		zoomMap(-1);
 	}
 	g.fillRect(width-64,288,64,64);
 	if(Point.inRect(width-64,288,64,64,px,py)&&b1){
 		b1=false;
-		if(scale>.125){
-			scale/=2;
-			xscroll=width/2-grid.length*t_width/2*scale;
-			yscroll=height/2;
-		}
+		zoomMap(1);
 	}
+	
+	/*g.fillRect(width-160,0,/,64);
+	if(Point.inRect(width-64,288,64,64,px,py)&&b1){
+		b1=false;
+		
+	}*/
 	
 	g.setColor(255,255,255,196);
 	
@@ -371,7 +654,7 @@ function renderHUD_tiles(g){
 	////document.title=tileLX;
 	//}
 	if(!tileDrag&&b1&&py>height-200){
-		if(tileLX==px+mx){//simulates 2 clicks needed to select a block
+		if(/*tileLX==px+mx*/Math.abs(tileLX+(px+mx))>0&&Math.abs(tileLX-(px+mx))<30){//simulates 2 clicks needed to select a block
 			//slect tile
 			selBlock=~~((px-tileScroll)/144);
 			var off = 0;

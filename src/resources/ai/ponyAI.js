@@ -16,7 +16,7 @@ var Life = new function(){
 	this.day=true;
 }
 
-var OPPT = true,trainAI=false;
+var OPPT = true,trainAI=true;
 
 function recolorPony(){
 	var all = document.createElement('canvas');
@@ -373,7 +373,7 @@ function movePonies(){
 				pones[q].xDir=xDir;//-1; -- I assume this was supposed to be 1 or negative 1 -- or more likely 0 and nevative 1
 				pones[q].yDir=yDir;//-1; -- same with y as abive
 				//var lr = (pones[q]>>22&0x1);// 23 / 32 bits
-				console.log(x+" "+y+" "+z+"   :: "+xDir+" "+yDir);
+				/**console.log(x+" "+y+" "+z+"   :: "+xDir+" "+yDir);**/
 				//pones[q] = ((lr&0x1)<<22)|(((yDir+1)&0x3)<<20)|(((xDir+1)&0x3)<<18)|((z&0x3f)<<12)|((y&0x3f)<<6)|(x&0x3f);
 			}
 		}
